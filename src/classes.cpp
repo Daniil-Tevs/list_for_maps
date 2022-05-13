@@ -7,11 +7,12 @@ RouterWriter::RouterWriter(std::string name_url)
         m_urlName =name_url;
         int begin_number,end_number;
         double tmp_lat,tmp_lon;
-        std::string tmp;
+        //Нахождение начала координат
         begin_number=m_urlName.find("gz")+5;
         name_url = m_urlName.substr(begin_number,name_url.size()-(begin_number+2));
         m_coordinates.emplace_back(std::make_pair(0,0));
         auto it = m_coordinates.begin();
+        //Получение координат
         while(!name_url.empty())
         {
             if(name_url.find(';')==-1)
@@ -31,6 +32,7 @@ RouterWriter::RouterWriter(std::string name_url)
             else
                 m_coordinates.emplace_back(std::make_pair(m_start_lat+tmp_lat,m_start_lon+tmp_lon));
         }
+        //Удаление повторяющихся координат
         it = m_coordinates.begin();
         auto tmp_it = m_coordinates.begin();
         std::advance(tmp_it,1);
@@ -40,7 +42,6 @@ RouterWriter::RouterWriter(std::string name_url)
                 m_coordinates.erase(tmp_it);
                 tmp_it = it;
                 tmp_it++;
-
             }
             else {
                 std::advance(it, 1);
