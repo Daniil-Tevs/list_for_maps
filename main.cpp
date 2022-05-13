@@ -10,5 +10,8 @@ int main() {
 
     RouterWriterJson road_json(url);
     road_json.Write("../output.json");
+
+    RouterWriterXml road_xml(url);
+    road_xml.Write("../output.xml");
     return 0;
 }

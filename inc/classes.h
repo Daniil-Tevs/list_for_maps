@@ -30,3 +30,12 @@ public:
 
     virtual ~RouterWriterJson()= default;
 };
+
+class RouterWriterXml : public RouterWriter
+{
+public:
+    RouterWriterXml(std::string nameUrl);
+    void Write(const std::string& where) override;
+
+    virtual ~RouterWriterXml()= default;
+};

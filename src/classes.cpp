@@ -75,3 +75,20 @@ RouterWriterJson::RouterWriterJson(std::string nameUrl) : RouterWriter(nameUrl) 
                 out<<"{ \"lat\" : "<<i.first<<", \"lon\" : "<<i.second<<"}"<<std::endl;
         out<<"] }";
     }
+RouterWriterXml::RouterWriterXml(std::string nameUrl) : RouterWriter(nameUrl) { }
+void RouterWriterXml::Write(const std::string &where) {
+    std::ofstream out(where);
+    out<<std::fixed; out.precision(7);
+    out<<R"(<?xml version="1.0" encoding="UTF-8"?>)"<<std::endl;
+    out<<"<rotate>"<<std::endl;
+    auto it = m_coordinates.end();
+    std::advance(it,-1);
+
+    for(auto i : m_coordinates)
+        if(i!=*it) {
+            out <<" <coordinate>\n";
+            out<<"  <latitude>"<< i.first << "</latitude>\n";
+            out<<"  <longitude>"<< i.second << "</longitude>\n";
+            out<<" </coordinate>\n"; }
+    out<<"</rotate>";
+}
